@@ -1,7 +1,6 @@
 package io.github.ultimateboomer.resolutioncontrol.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -29,20 +28,19 @@ public final class RCUtil {
         return String.format("%s %s", FORMAT.format(result), UNITS[log10 / 3 - 1]);
     }
 
-    public static File getScreenshotFilename(File directory) {
+    public static String getScreenshotFilename(File directory) {
         String string = DATE_FORMAT.format(new Date());
         int i = 1;
 
         while (true) {
-            File file = new File(new File(""), "fb" + string + (i == 1 ? "" : "_" + i) + ".png");
-            File entireDirectory = new File(new File(directory, "screenshots"), file.toString());
-            if (!entireDirectory.exists()) {
-                try {
-                    entireDirectory.createNewFile();
-                } catch (IOException e) {
-                    throw new IllegalStateException(e);
-                }
-                return file;
+            File screenshotDir = new File(directory, "screenshots");
+            screenshotDir.mkdir();
+
+            String fileName = "fb" + string + (i == 1 ? "" : "_" + i) + ".png";
+            File imagePath = new File(screenshotDir, fileName);
+
+            if (!imagePath.exists()) {
+                return fileName;
             }
 
             ++i;

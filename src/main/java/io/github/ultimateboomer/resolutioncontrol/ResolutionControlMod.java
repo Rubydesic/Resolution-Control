@@ -128,7 +128,7 @@ public class ResolutionControlMod implements ModInitializer {
 
 	private void saveScreenshot(Framebuffer fb) {
 		ScreenshotRecorder.saveScreenshot(client.runDirectory,
-				RCUtil.getScreenshotFilename(client.runDirectory).toString(), fb,
+				RCUtil.getScreenshotFilename(client.runDirectory), fb,
 				text -> client.player.sendMessage(text, false));
 	}
 	
